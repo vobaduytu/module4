@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<h3>Product</h3>
+<p>
+    <a th:href="@{/create}">
+        Add new product
+    </a>
+</p>
+<table id="product">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>description</th>
+        <th>Edit</th>
+        <th>Delete</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row,rowStat : ${product}">
+        <td th:text="${row.id}"></td>
+        <td th:text="${row.productName}"></td>
+        <td th:text="${row.description}"></td>
+        <td><a th:href="@{/{id}/edit(id=${row.id})}">edit</a></td>
+        <td><a th:href="@{/{id}/delete(id=${row.id})}" onclick="return confirm('co chac muon xoa')">delete</a></td>
+
+    </tr>
+    </tbody>
+</table>
+
+<div class="notify">
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
+</body>
+</html>
