@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout::head">
+</head>
+<body>
+<div class="container">
+    <h2>Category</h2>
+    <div th:if="${mess}" class="alert alert-warning">
+        <span th:text="${mess}"></span>
+    </div>
+    <form th:action="@{/search-cate}" method="post">
+        <div class="input-group mb-3"  >
+            <input type="text" name="s" class="form-control" placeholder="Search">
+            <div class="input-group-append">
+                <button class="btn btn-success" type="submit">Go</button>
+            </div>
+        </div>
+    </form><br/>
+    <div>
+        <a th:href="@{/category-list(page=${cate.number - 1})}" th:if="${cate.hasPrevious()}">Previous</a>
+        <span th:text="${cate.number + 1}"></span>/<span th:text="${cate.totalPages}"></span>
+        <a th:href="@{/category-list(page=${cate.number + 1})}" th:if="${cate.hasNext()}">Next</a>
+    </div>
+    <div ><button  type="button" class="btn btn-outline-secondary"><a href="/create-cate">Create new Category</a></button>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="row : ${cate}">
+            <td th:text="${row.getId()}"></td>
+            <td th:text="${row.getName()}"></td>
+            <td><a th:href="@{/{id}/edit-cate(id=${row.id})}">edit</a>
+                <a th:href="@{/{id}/delete-cate(id=${row.id})}" onclick="return confirm('co chac muon xoa')">delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

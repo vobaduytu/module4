@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout::head">
+</head>
+<body>
+<h2>Customer</h2>
+<form>
+    <div class="input-group mb-3" style="width: 300px" >
+        <input type="text" name="s" class="form-control" placeholder="Search">
+        <div class="input-group-append">
+            <button class="btn btn-success" type="submit">Go</button>
+        </div>
+    </div>
+</form><br/>
+<div>
+    <a th:href="@{/home(page=${cus.number - 1})}" th:if="${cus.hasPrevious()}">Previous</a>
+    <span th:text="${cus.number + 1}"></span>/<span th:text="${cus.totalPages}"></span>
+    <a th:href="@{/home(page=${cus.number + 1})}" th:if="${cus.hasNext()}">Next</a>
+</div>
+<div style="padding-left: 200px"><button  type="button" class="btn btn-outline-secondary"><a href="/create">Create new Cusromer</a></button>
+</div>
+
+<div class="container">
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>FistName</th>
+            <th>LastName</th>
+            <th>Province</th>
+            <th>action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="row : ${cus}">
+            <td th:text="${row.getId()}"></td>
+            <td th:text="${row.getFirstName()}"></td>
+            <td th:text="${row.getLastName()}"></td>
+            <td th:text="${row.getProvince().getName()}"></td>
+            <td><a th:href="@{/{id}/edit(id=${row.id})}">edit</a>
+                <a th:href="@{/{id}/delete(id=${row.id})}" onclick="return confirm('co chac muon xoa')">delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

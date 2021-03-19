@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout::head">
+<body>
+
+<div class="container">
+    <h2>Edit Blog</h2>
+
+    <form th:action="@{/update}" method="post" th:object="${post}">
+        <input type="hidden" th:field="*{id}">
+        <div class="form-group">
+            <label for="usr">Title</label>
+            <input type="text" class="form-control" id="usr" th:field="*{title}"/>
+        </div>
+        <div class="form-group">
+            <label for="pwd">Content</label>
+            <input type="text" class="form-control"  id="pwd" th:field="*{content}"/>
+        </div>
+
+        <div class="form-group">
+            <label for="img">Image</label>
+            <input type="text" class="form-control" id="img" th:field="*{image}"/>
+        </div>
+
+        <div class="form-group">
+            <label for="province">Category</label>
+            <select id="province" th:field="*{category.id}">
+                <option th:each="prov: ${category}" th:value="${prov.id}" th:utext="${prov.name}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout::head">
+<body>
+
+<div class="container">
+    <h2>Add Blog</h2>
+
+    <form th:action="@{/add}" method="post" th:object="${cus}" >
+        <div class="form-group">
+            <label for="usr">FistName:</label>
+            <input type="text" class="form-control" id="usr" th:field="*{firstName}"/>
+        </div>
+
+        <div class="form-group">
+            <label for="comment">LastName:</label>
+            <textarea class="form-control" rows="5" id="comment" th:field="*{lastName}"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="province">LastName:</label>
+            <select id="province" th:field="*{province.id}">
+                <option th:each="prov: ${provinces}" th:value="${prov.id}" th:utext="${prov.name}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>
